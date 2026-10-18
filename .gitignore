@@ -1,0 +1,49 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.eggs/
+
+# --- Virtual environments ---
+venv/
+.venv/
+env/
+ENV/
+
+# --- PyInstaller ---
+build/
+dist/
+*.manifest
+*.spec.bak
+
+# --- Runtime data (never commit user data) ---
+userdata/
+*.log
+nav.log
+settings.log
+
+# --- Chromium/Pri profile leftovers ---
+profile/
+Service Worker/
+Cache/
+Code Cache/
+GPUCache/
+
+# --- Editors / OS ---
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+desktop.ini
+*.lnk
+
+# --- Temporary ---
+*.tmp
+*.bak
+~$*

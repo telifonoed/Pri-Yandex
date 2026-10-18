@@ -1,0 +1,15 @@
+# Normalize line endings
+* text=auto eol=lf
+
+# Windows scripts need CRLF
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.ps1 text eol=crlf
+
+# Binary
+*.png binary
+*.ico binary
+*.jpg binary
+*.jpeg binary
+*.exe binary
+*.zip binary
