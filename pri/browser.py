@@ -3,17 +3,17 @@ import html
 from urllib.parse import urlparse
 from pathlib import Path
 
-from PySide6.QtCore import QUrl, QTimer, Qt, QSize
-from PySide6.QtGui import QShortcut, QKeySequence, QIcon
+from PySide6.QtCore import QUrl, QTimer
+from PySide6.QtGui import QShortcut, QKeySequence
 from PySide6.QtWidgets import (
     QHBoxLayout, QLabel, QLineEdit, QMainWindow, QTabBar, QStackedWidget,
-    QToolBar, QVBoxLayout, QWidget, QPushButton, QSizePolicy,
+    QVBoxLayout, QWidget, QPushButton,
 )
 
 from .config import Config
 from .page import PriPage, PriView
 from .privacy.interceptor import PrivacyInterceptor
-from .privacy.report import BlockedEvent, BlockedRegistry
+from .privacy.report import BlockedRegistry
 from .privacy.rules import RuleSet, load_default_rules
 
 
@@ -199,8 +199,6 @@ class BrowserWindow(QMainWindow):
         self.statusBar().setStyleSheet(f"background:{status_bg}; color:{text};")
         # app palette
         from PySide6.QtWidgets import QApplication
-        from PySide6.QtGui import QPalette, QColor
-        from PySide6.QtCore import QUrl
         app = QApplication.instance()
         if app and hasattr(app, "_apply_theme"):
             app._apply_theme(theme)
@@ -401,8 +399,8 @@ class BrowserWindow(QMainWindow):
         page.setHtml(self._build_blocked_html(self._pending), baseUrl=QUrl("pri://blocked"))
 
     def _build_blocked_html(self, events):
-        from .ui.theme import colors as _colors
-        c = _colors(self._config.theme)
+        from .ui.theme import colors
+        c = colors(self._config.theme)
         blocks = [e for e in events if e.kind == "block"]
         cleans = [e for e in events if e.kind == "clean"]
         headers = [e for e in events if e.kind == "header"]

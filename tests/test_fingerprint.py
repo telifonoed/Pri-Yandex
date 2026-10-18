@@ -1,6 +1,9 @@
 """Headless verification of Pri's fingerprint spoofing (uses the real pri/js files)."""
 import os, sys, json
-sys.path.insert(0, 'D:/Pri-yandex')
+from pathlib import Path
+
+# Make the repo importable regardless of where this file lives.
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 os.environ.setdefault('QT_QPA_PLATFORM', 'offscreen')
 
 from pri.paths import pin_environment, PROJECT_ROOT

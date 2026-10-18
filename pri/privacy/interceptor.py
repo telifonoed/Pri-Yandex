@@ -1,12 +1,10 @@
 from __future__ import annotations
 import time
 from urllib.parse import urlsplit
-from PySide6.QtCore import QUrl
 from PySide6.QtWebEngineCore import QWebEngineUrlRequestInterceptor
 
-from ..config import Config
-from .report import BlockedEvent, BlockedRegistry
-from .rules import RuleSet, _is_subdomain
+from .report import BlockedEvent
+from .rules import _is_subdomain
 
 
 STRIP_HEADERS = ("referer", "dnt", "sec-gpc", "x-client-data", "x-purpose", "x-requested-with")

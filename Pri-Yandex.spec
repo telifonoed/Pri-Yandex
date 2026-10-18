@@ -1,14 +1,20 @@
 # -*- mode: python ; coding: utf-8 -*-
 import os
 from pathlib import Path
-from PyInstaller.utils.hooks import collect_all, collect_data_files
+from PyInstaller.utils.hooks import collect_all
 
 # Collect all PySide6 data (QtWebEngine resources, locales, translations).
 pyside6_datas, pyside6_binaries, pyside6_hiddenimports = collect_all("PySide6")
 
-PROJECT = Path(r"D:\Pri-yandex")
+# Resolve paths relative to this spec file so the build works anywhere.
+# SPECPATH is the absolute path of the spec file itself.
+PROJECT = Path(SPECPATH).resolve().parent
+if not (PROJECT / "run.py").exists():
+    PROJECT = Path(os.getcwd()).resolve()
+
 ASSETS = PROJECT / "assets"
 LISTS = PROJECT / "pri" / "privacy" / "lists"
+JS = PROJECT / "pri" / "js"
 
 a = Analysis(
     [str(PROJECT / "run.py")],
@@ -16,7 +22,7 @@ a = Analysis(
     datas=[
         (str(ASSETS), "assets"),
         (str(LISTS), "pri/privacy/lists"),
-        (str(PROJECT / "pri" / "js"), "pri/js"),
+        (str(JS), "pri/js"),
     ] + pyside6_datas,
     binaries=pyside6_binaries,
     hiddenimports=[

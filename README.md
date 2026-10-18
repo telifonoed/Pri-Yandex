@@ -26,8 +26,9 @@ should be doing by default:
 - **Headers hardened** — `Referer` removed, `DNT: 1` and `Sec-GPC: 1` sent.
 - **Fingerprint randomized** per page load — WebGL, canvas, audio, fonts,
   hardware profile.
-- **Ads blocked** — ~80 ad networks in a dedicated list.
+- **Ads blocked** — ~90 ad networks in a dedicated list.
 - **Cookies under control** — third-party cookies dropped; optional full cookie lock.
+- **~110 tracker domains** and **~90 ad networks** in EasyList-style lists you can extend.
 - **Nothing leaves your project folder.** Profile, cache, temp, downloads and
   settings all live next to the binary. Disk `C:` is never written.
 
@@ -49,15 +50,6 @@ venv\Scripts\python.exe run.py
 Download `Pri-Yandex.exe` from the Releases page (~249 MB — Python, Chromium and
 all resources are bundled). Double-click to run.
 
-## Build your own .exe
-
-```bash
-venv\Scripts\python.exe -m pip install pyinstaller
-venv\Scripts\pyinstaller.exe Pri-Yandex.spec
-```
-
-Output: `dist\Pri-Yandex.exe`
-
 ## Built-in pages
 
 | Page | What it does |
@@ -77,28 +69,6 @@ cookie-banner hiding, cookie control, URL cleaning, speculative-navigation block
 default), WebRTC leak policy, Safe Browsing, DNS prefetch.
 
 All settings persist to `userdata/config.json`.
-
-## Project layout
-
-```
-pri/
-  app.py                entry point, profile, injected scripts
-  browser.py            main window, tabs, toolbar, blocked panel
-  page.py               PriPage (pri:// scheme, JS dialogs, downloads)
-  config.py             settings
-  paths.py              all paths pinned to the project directory
-  js/                   injected anti-fingerprinting / cookie scripts
-  ui/theme.py           light + dark palettes
-  privacy/
-    interceptor.py      QWebEngineUrlRequestInterceptor — the privacy core
-    rules.py            EasyList-style rule engine
-    urlclean.py         tracking-parameter stripper
-    report.py           thread-safe event store
-    lists/              tracker + ad blocklists
-tests/                  headless verification (privacy, fingerprinting)
-assets/                 logo and icon
-Pri-Yandex.spec         PyInstaller build spec
-```
 
 ## How it works
 
@@ -125,7 +95,7 @@ main world, so it runs before any page script can read the real values.
 ## Requirements
 
 - Windows (tested on Windows 10/11)
-- Python 3.11+ (developed on 3.14)
+- Python 3.10+ (developed on 3.14)
 - PySide6 6.12
 
 ## License

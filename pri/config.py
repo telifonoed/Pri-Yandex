@@ -1,7 +1,7 @@
 import json
 from dataclasses import asdict, dataclass, field, fields
 from pathlib import Path
-from .paths import CONFIG_PATH, ensure_dirs
+from .paths import CONFIG_PATH
 
 @dataclass
 class Config:

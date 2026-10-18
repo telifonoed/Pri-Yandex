@@ -1,6 +1,5 @@
 from __future__ import annotations
 from pathlib import Path
-from urllib.parse import urlparse
 
 from PySide6.QtCore import QUrl, Signal, QTimer
 from PySide6.QtWidgets import QFileDialog, QMessageBox, QInputDialog
@@ -9,8 +8,7 @@ from PySide6.QtWebEngineWidgets import QWebEngineView
 
 from .config import Config
 from .paths import DOWNLOAD_DIR
-from .privacy.report import BlockedRegistry
-from .privacy.urlclean import clean_url, is_tracking_param
+from .privacy.urlclean import clean_url
 
 
 class PriPage(QWebEnginePage):
@@ -139,8 +137,10 @@ class PriPage(QWebEnginePage):
     def _on_feature_permission(self, origin, feature):
         if self._config.deny_permissions:
             try:
-                from PySide6.QtWebEngineCore import QWebEnginePage as P
-                self.setFeaturePermission(origin, feature, P.PermissionPolicy.PermissionDeniedByUser)
+                self.setFeaturePermission(
+                    origin, feature,
+                    QWebEnginePage.PermissionPolicy.PermissionDeniedByUser,
+                )
             except Exception:
                 pass
 

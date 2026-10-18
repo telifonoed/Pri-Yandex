@@ -1,7 +1,6 @@
 import sys
 from pathlib import Path
 
-from PySide6.QtCore import Qt, QUrl
 from PySide6.QtGui import QPalette, QColor
 from PySide6.QtWidgets import QApplication
 from PySide6.QtWebEngineCore import QWebEngineProfile, QWebEngineSettings

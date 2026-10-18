@@ -1,7 +1,12 @@
 import http.server, socketserver, threading, time, os, sys
-sys.path.insert(0, "D:/Pri-yandex")
+from pathlib import Path
+
+# Make the repo importable regardless of where this file lives.
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
-PORT = 8790
+
+# Use a free port so parallel runs don't collide.
+PORT = 0
 RECORDS = {"requests": [], "lock": threading.Lock()}
 
 class Handler(http.server.BaseHTTPRequestHandler):
@@ -20,6 +25,7 @@ class Handler(http.server.BaseHTTPRequestHandler):
 
 socketserver.TCPServer.allow_reuse_address = True
 httpd = socketserver.TCPServer(("127.0.0.1", PORT), Handler)
+PORT = httpd.server_address[1]
 threading.Thread(target=httpd.serve_forever, daemon=True).start()
 time.sleep(0.3)
 
